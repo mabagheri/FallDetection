@@ -1,0 +1,12 @@
+pywt
+certifi
+six
+python_dateutil
+setuptools
+urllib3
+numpy
+scipy
+matplotlib
+pandas
+sklearn
+holidays

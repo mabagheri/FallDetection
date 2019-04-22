@@ -1,0 +1,108 @@
+{
+    "config_id": 5,
+
+    "data": {
+        "dataset": "fall data",
+            "main_csi_folder": ["/home/mohamamd/Experiments/All_Data/Fall_data/2019.03.06/",
+                                "/home/mohamamd/Experiments/All_Data/Fall_data/2019.02.18/"]
+    },
+
+    "initialization": {
+        "meta_data_exists": true,
+        "put all types of fall in one class": true,
+        "fall_vs_no_fall (binary classification)": true,
+        "correct__different_names_multilabel": false,
+        "data_filtering": [["zone", "z2"], "or", ["zone", "z3"], "or", ["zone", "z5"]],
+
+        "data_filtering_classes": ["all"],
+         "__options": [["action", "fall"], "or", ["action", "laydown"], "or", ["action", "sit"]],
+
+        "n_samples_per_class": 180
+    },
+
+    "preprocessing": {
+        "csi_chopping": true,
+        "chopping_length": 100,
+        "min_acceptable_length": 100,
+
+        "Applying Rssi DropFilter": true,
+
+        "output_amp": true,
+        "output_phase": false,
+
+        "normalization_type": "V2",
+        "Apply_L2_NormsFilter": false,
+
+        "scaling_type": "None",
+
+        "diff_type": "None",
+
+        "noise_reduction_filter": "None",
+        "median_kernel_size": [3, 3, 1],
+
+        "stream_reduction_method": "None",
+        "stream_reduction_mode": "fuse_on_receiver_side",
+        "if_split_into_semi_equal_bins: n_streams_after_reduction": 1,
+        "stream_fusion_method": "median",
+
+        "subcarrier_reduction_method": "None",
+        "n_subcarrier_after_reduction": 7,
+        "subcarrier_fusion_method": "average",
+
+        "moving_std/var_window_size": 20,
+        "moving_std/var_stride": 1,
+        "moving_std_or_var": "moving_std"
+    },
+
+    "sample_generation": {
+        "method": "not_needed",
+        "ShapeData": {"window_size": 90, "stride": 4}
+    },
+
+    "feature_extraction": {
+        "method": ["FFTv4"],
+        "_options": "StatisticalFeatures FFTv3 FFTv4",
+
+        "ax_in_statistical_features": [1],
+        "version_in_statistical_features": 2,
+        "n_splits_in_statistical_features": 2,
+        "funcs_in_statistical_features": ["np.mean", "np.std", "scipy_stats.skew", "scipy_stats.kurtosis", "np.min", "np.max", "mad"],
+        "n_segments_in_mad": 1,
+        "normalize_mad": true,
+
+        "fft: stream_reduction_mode": "fuse_on_receiver_side",
+        "fft: stream_fusion_function": "average",
+        "fft: n_subcarrier_after_reduction": 1,
+        "fft: subcarrier_fusion_function": "average",
+        "FFTv4: n_ffts": 16,
+        "FFTv4: w": 16,
+        "FFTv4: stride": 8
+    },
+
+    "feature_transformation": {
+        "method": "None"
+    },
+
+    "validation": {
+        "style": "hold_out",
+        "hold_out_train_percentage": 1,
+        "shuffle": true,
+        "filters_to_customize_split_data_to_train": "experiment_id"
+    },
+
+    "classification": {
+        "features_scaling": "StandardScaler",
+
+        "classifier": "RF",
+        "RF: n_trees": 200,
+        "RF: max_depth": 5,
+        "RF: class_weight": "{0: 1, 1: 1}",
+        "RF: min_samples_split": 4,
+
+        "save_plot_conf_matrix": 2,
+        "save_model": true
+    },
+
+    "save the results": true
+
+}
