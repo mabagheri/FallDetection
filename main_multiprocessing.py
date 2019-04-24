@@ -1,6 +1,7 @@
 __copyright__ = "Aerial 2019"
 __version__ = "1.0.0"
 __license__ = "MIT"
+__author__ = "MohammadAli Bagheri"
 
 import json
 import numpy as np
