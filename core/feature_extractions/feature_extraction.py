@@ -15,9 +15,6 @@ def main_feature_extraction(all_samples, configs):
             if method == "None":
                 features = data
 
-            elif method == "ReshapeData_v1":
-                features = np.reshape(np.transpose(data, [1, 2, 0]), (data.shape[1], -1))
-
             else:
                 f = eval(method)(data, configs)
                 features = f.extract_features()
